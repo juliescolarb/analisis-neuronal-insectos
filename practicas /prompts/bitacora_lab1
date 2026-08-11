@@ -1,0 +1,32 @@
+# Bitácora de prompts — lab 1
+
+## Prompt 1
+Trabajo en Python dentro de Google Colab. Tengo un DataFrame de pandas llamado datos con las columnas neurona (texto), estimulo (texto: "viento" o "silencio"), ensayo (entero) y n_spikes (entero). Son registros extracelulares del sistema cercal de un grillo. Quiero un gráfico de barras del promedio de n_spikes por estimulo, con barras de error de desviación estándar. Incluye labels de los ejes con unidades, un título corto y colores pálidos. Explícame qué hace cada línea con un comentario.
+
+**Qué me devolvió:** 
+
+import matplotlib.pyplot as plt  # librería para graficar
+
+# Agrupamos por 'estimulo' y calculamos media y desviación estándar de n_spikes
+resumen = datos.groupby('estimulo')['n_spikes'].agg(['mean', 'std'])
+
+fig, ax = plt.subplots(figsize=(5, 4))  # creamos la figura y los ejes, tamaño en pulgadas
+
+colores_palidos = ['#AEC6CF', '#FFB7B2']  # colores pálidos para las barras (azul y rosa suaves)
+
+ax.bar(
+    resumen.index,          # nombres de las categorías: "viento", "silencio"
+    resumen['mean'],        # altura de cada barra: promedio de n_spikes
+    yerr=resumen['std'],    # barras de error: desviación estándar
+    capsize=5,               # ancho de las "tapas" de las barras de error
+    color=colores_palidos,   # aplicamos los colores pálidos definidos arriba
+    edgecolor='gray'         # borde gris suave para las barras
+)
+
+ax.set_xlabel('Estímulo')                     # etiqueta del eje x
+ax.set_ylabel('Número de spikes (promedio ± DE)')  # etiqueta del eje y con unidades
+ax.set_title('Actividad neuronal cercal por estímulo')  # título corto
+
+plt.tight_layout()  # ajusta márgenes para que no se corten las etiquetas
+plt.show()           # muestra el gráfico
+**Qué tuve que corregir:** 
