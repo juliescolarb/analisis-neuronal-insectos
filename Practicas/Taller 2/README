@@ -1,0 +1,1 @@
+En este taller analizamos registros extracelulares de una sonda de 16 electrodos del sistema cercal del grillo. Se filtra la señal, se detectan los picos, se sacan características de cada uno y se agrupan por neurona usando K-means.
